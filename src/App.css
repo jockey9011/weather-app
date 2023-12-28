@@ -1,0 +1,9 @@
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url('./assets/clima.png');
+  background-position: center;
+  background-size: cover;
+}
