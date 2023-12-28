@@ -1,17 +1,28 @@
-import { useState } from "react"
-import './WeatherCard.css'
+import React, { useState } from "react";
+import axios from 'axios';
+import './WeatherCard.css';
 
-const WeatherCard = ({ weather, temp }) => {
+const WeatherCard = ({ weather, temp, onSearch }) => {
+  const [isCelcius, setIsCelcius] = useState(true);
+  const [search, setSearch] = useState('');
 
-  const [isCelcius, setIsCelcius] = useState(true)
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    onSearch(search);
+  };
+
   const handleChangeTemp = () => {
-    setIsCelcius(state => !state)
-  }
-
+    setIsCelcius((state) => !state);
+  };
 
   return (
     <article className="weather">
       <h1 className="weather__title">Weather App</h1>
+
       <h2 className="weather__subtitle">{weather?.name}, {weather?.sys.country}</h2>
       <section className="weather__body">
         <header className="weather__img">
@@ -21,25 +32,27 @@ const WeatherCard = ({ weather, temp }) => {
           <h3 className="weather__info__title">"{weather?.weather[0].description}"</h3>
           <ul className="weather__list">
             <li className="weather__item"><span className="weather__label">Wind Speed</span>
-            <span className="weather__value">{weather?.wind.speed} m/s</span></li>
+              <span className="weather__value">{weather?.wind.speed} m/s</span></li>
             <li className="weather__item"><span className="weather__label">Clouds</span>
-            <span className="weather__value">{weather?.clouds.all} %</span></li>
+              <span className="weather__value">{weather?.clouds.all} %</span></li>
             <li className="weather__item"><span className="weather__label">Pressure</span>
-            <span className="weather__value">{weather?.main.pressure} hPa</span></li>
+              <span className="weather__value">{weather?.main.pressure} hPa</span></li>
           </ul>
         </article>
       </section>
 
       <footer className="weather__footer">
-        <h2 className="weather__temp">{
-          isCelcius 
-        ? `${temp?.celcius} ºC` 
-        : `${temp?.fahrenheit} ºF`}
+        <h2 className="weather__temp">
+          {isCelcius ? `${temp?.celcius} ºC` : `${temp?.fahrenheit} ºF`}
         </h2>
         <button className="weather__btn" onClick={handleChangeTemp}>Change Temperature</button>
+        <form onSubmit={handleSearchSubmit} className="search-form">
+          <input type="text" value={search} onChange={handleSearchChange} placeholder="Search city or country" />
+          <button type="submit">Search</button>
+        </form>
       </footer>
     </article>
-  )
-}
+  );
+};
 
-export default WeatherCard
+export default WeatherCard;

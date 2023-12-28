@@ -2,8 +2,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
   min-height: 100vh;
-  background-image: url('./assets/clima.png');
   background-position: center;
   background-size: cover;
 }
+
+.clear-sky {
+  background-image: url('./assets/clear_sky.jpg');
+}
+
+.clouds {
+  background-image: url('./assets/clima.png');
+}
+
+.rain {
+  background-image: url('./assets/lluvia.jpeg');
+}
+
+
